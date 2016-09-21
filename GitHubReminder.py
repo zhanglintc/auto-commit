@@ -167,23 +167,9 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
         if line and count == None: # readline isn't None means urlopen success, initialize count as 0
             count = 0
 
-        if '"{}"'.format(TODAY) in line: # find TODAY, TODAY must surrounded with quotation marks like "2014-11-10"
-            count = line.split('\"')[11] # today's commit is in 11th position
-
-        if 'Pushed' in line:
-            line = re.sub('^ *', '', line) # strip spaces in the beginning of this line
-            line = re.sub('</a>', '', line) # remove </a>
-            pushed_detail += line
-
-        if "/pull/" in line and '"title"' in line:
-            line = re.sub('</a>', '', line) # remove </a>
-            line = line.split('>')[-1] # pull request detail is in last position
-            pushed_detail += ("Pull request: " + line)
-
-        if "/issues/" in line and '"title"' in line:
-            mc = re.search('\>(.*?)\<', line) # issues detail is the shortest string between ">" and "<"
-            line = mc.group(1) + "\n" # add a line break
-            pushed_detail += ("Issue: " + line)
+        if TODAY in line and "data-count" in line:
+            mc = re.search('data-count="(\d+)"', line)
+            count = int(mc.group(1))
 
         # get longest streak
         if "Longest streak" in line:
