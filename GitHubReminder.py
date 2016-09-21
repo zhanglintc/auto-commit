@@ -133,8 +133,8 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     reload(sys)
     sys.setdefaultencoding('utf8')
 
-    web_cotent = urllib.urlopen(GITHUB_URL) # open website
-    web_cotent = urllib.urlopen(GITHUB_URL) # do it twice
+    web_content = urllib.urlopen(GITHUB_URL) # open website
+    web_content = urllib.urlopen(GITHUB_URL) # do it twice
 
     line  = True
     error = True
@@ -146,7 +146,7 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     fw = open(LOG_FILE, 'w')
     while line:
         # read each line while not the end
-        line = web_cotent.readline()
+        line = web_content.readline()
 
         # write web_content to log file
         fw.write(line)
