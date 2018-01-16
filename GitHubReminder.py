@@ -210,6 +210,8 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
 
     if time.localtime().tm_hour == 23 and int(count) == 0 and Auto_Commit_Flag:
         send_content = send_commands = auto_commit(streak_detail)
+
+    urllib.urlopen("http://zhanglintc.work:8000/send?text={0}".format(urllib.quote(send_content)))
     ##########################################
 
     # if don't want to see log file, use the code next line
@@ -219,7 +221,7 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     if count != None: # if count is initialized, do command
         print("sending...\n")
 
-        doSend = True # debug use only
+        doSend = False # debug use only
 
         if not MailType == 'python':
             for send_command in send_commands:
