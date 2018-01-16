@@ -14,6 +14,8 @@ for i in range(3):
     else:
         break
 
+# exit after zhanglin, not execute any more
+sys.exit()
 
 # below is WuHong special process...
 Wuhong_Mail_List = [
