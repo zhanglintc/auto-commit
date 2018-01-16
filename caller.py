@@ -11,6 +11,8 @@ Zhanglin_Github_URL = "https://github.com/zhanglintc?tab=overview&from={0}".form
 for i in range(3):
     if GitHubReminder.github_reminder(GITHUB_URL = Zhanglin_Github_URL, Auto_Commit_Flag = True):
         print('zhanglin failed, try again\n')
+    else:
+        break
 
 
 # below is WuHong special process...
@@ -22,6 +24,8 @@ Wuhong_Github_URL = "https://github.com/sheriseanes?tab=overview&from={0}".forma
 for i in range(3):
     if GitHubReminder.github_reminder(MailList = Wuhong_Mail_List, GITHUB_URL = Wuhong_Github_URL, Auto_Commit_Flag = False):
         print('wuhong failed, try again\n')
+    else:
+        break
 
 
 # below is Houliyuan special process...
@@ -33,6 +37,8 @@ Houliyuan_Github_URL = "https://github.com/Pang327?tab=overview&from={0}".format
 for i in range(3):
     if GitHubReminder.github_reminder(MailList = Houliyuan_Mail_List, GITHUB_URL = Houliyuan_Github_URL, Auto_Commit_Flag = False):
         print('houliyuan failed, try again\n')
+    else:
+        break
 
 
 
