@@ -8,8 +8,9 @@ import GitHubReminder
 
 # if GitHubReminder.github_reminder() returned with not code 0, recall it
 Zhanglin_Github_URL = "https://github.com/zhanglintc?tab=overview&from={0}".format(GitHubReminder.TODAY)
-while GitHubReminder.github_reminder(GITHUB_URL = Zhanglin_Github_URL, Auto_Commit_Flag = True):
-    print('zhanglin failed, try again\n')
+for i in range(3):
+    if GitHubReminder.github_reminder(GITHUB_URL = Zhanglin_Github_URL, Auto_Commit_Flag = True):
+        print('zhanglin failed, try again\n')
 
 
 # below is WuHong special process...
@@ -18,9 +19,9 @@ Wuhong_Mail_List = [
     # "zhanglintc623@foxmail.com",
 ]
 Wuhong_Github_URL = "https://github.com/sheriseanes?tab=overview&from={0}".format(GitHubReminder.TODAY)
-
-while GitHubReminder.github_reminder(MailList = Wuhong_Mail_List, GITHUB_URL = Wuhong_Github_URL, Auto_Commit_Flag = False):
-    print('wuhong failed, try again\n')
+for i in range(3):
+    if GitHubReminder.github_reminder(MailList = Wuhong_Mail_List, GITHUB_URL = Wuhong_Github_URL, Auto_Commit_Flag = False):
+        print('wuhong failed, try again\n')
 
 
 # below is Houliyuan special process...
@@ -29,8 +30,9 @@ Houliyuan_Mail_List = [
     # "zhanglintc623@foxmail.com",
 ]
 Houliyuan_Github_URL = "https://github.com/Pang327?tab=overview&from={0}".format(GitHubReminder.TODAY)
-while GitHubReminder.github_reminder(MailList = Houliyuan_Mail_List, GITHUB_URL = Houliyuan_Github_URL, Auto_Commit_Flag = False):
-    print('houliyuan failed, try again\n')
+for i in range(3):
+    if GitHubReminder.github_reminder(MailList = Houliyuan_Mail_List, GITHUB_URL = Houliyuan_Github_URL, Auto_Commit_Flag = False):
+        print('houliyuan failed, try again\n')
 
 
 

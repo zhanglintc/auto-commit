@@ -156,7 +156,7 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
             error = False
 
         # if get web_content error, exit with code 100, so caller.py will recall this script
-        if 'wrong' in line:
+        if 'wrong' in line and "Something went wrong." not in line:
             if error: # really error, this make script hasn't get data-count
                 fw.close()
                 os.remove(LOG_FILE)
