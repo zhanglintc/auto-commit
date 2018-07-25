@@ -32,7 +32,7 @@ Exit code:
          佛祖保佑    iii    永无BUG
 """
 
-import os, sys, urllib, urllib2, urllib2
+import os, sys, urllib, urllib2
 import datetime, time
 import subprocess
 import platform
