@@ -32,7 +32,7 @@ Exit code:
          佛祖保佑    iii    永无BUG
 """
 
-import os, sys, urllib
+import os, sys, urllib, urllib2, urllib2
 import datetime, time
 import subprocess
 import platform
@@ -133,8 +133,9 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     reload(sys)
     sys.setdefaultencoding('utf8')
 
-    web_content = urllib.urlopen(GITHUB_URL) # open website
-    web_content = urllib.urlopen(GITHUB_URL) # do it twice
+    opener = urllib2.build_opener()
+    opener.addheaders.append(('Cookie', 'tz=Asia%2FShanghai')) # set tz(timezone) to gain contributions correctly
+    web_content = opener.open(GITHUB_URL)
 
     line  = True
     error = True
