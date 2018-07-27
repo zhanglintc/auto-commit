@@ -142,13 +142,22 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     count = -1
 
     driver = webdriver.PhantomJS()
-    driver.get(GITHUB_URL)
-    content = driver.page_source
-    driver.close()
+    driver.set_page_load_timeout(30)
+    driver.set_script_timeout(30)
+
+    try:
+        driver.get(GITHUB_URL)
+        content = driver.page_source
+    except:
+        content = driver.page_source
+    finally:
+        driver.close()
 
     mc = re.search('data-count="(\d)".*{0}'.format(TODAY), content)
     if mc:
         count = mc.group(1)
+    else:
+        return 100
 
     fw = open(LOG_FILE, 'wb')
     fw.write(content)
