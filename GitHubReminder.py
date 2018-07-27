@@ -32,7 +32,9 @@ Exit code:
          佛祖保佑    iii    永无BUG
 """
 
-import os, sys, urllib, urllib2
+from selenium import webdriver
+
+import os, sys, urllib
 import datetime, time
 import subprocess
 import platform
@@ -133,81 +135,28 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     reload(sys)
     sys.setdefaultencoding('utf8')
 
-    headers = [
-        ('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'),
-    ]
+    content = ""
+    count = -1
 
-    opener = urllib2.build_opener()
-    opener.addheaders = headers
-    opener.addheaders.append(('Cookie', 'tz=Asia%2FShanghai')) # set tz(timezone) to gain contributions correctly
-    web_content = opener.open(GITHUB_URL)
+    driver = webdriver.PhantomJS()
+    driver.get(GITHUB_URL)
+    content = driver.page_source
+    driver.close()
 
-    line  = True
-    error = True
-    count = None
-    longestStreak = False
-    currentStreak = False
-    pushed_detail = ""
-    streak_detail = ""
-    fw = open(LOG_FILE, 'w')
-    while line:
-        # read each line while not the end
-        line = web_content.readline()
+    mc = re.search('data-count="(\d)".*{0}'.format(TODAY), content)
+    if mc:
+        count = mc.group(1)
 
-        # write web_content to log file
-        fw.write(line)
-
-        # if 'data-count' is found, means connect is OK, set error as False
-        if error and 'data-count' in line:
-            error = False
-
-        # if get web_content error, exit with code 100, so caller.py will recall this script
-        if 'wrong' in line and "Something went wrong." not in line:
-            if error: # really error, this make script hasn't get data-count
-                fw.close()
-                os.remove(LOG_FILE)
-                return 100
-            else: # something occurred after get data-count, doesn't matter
-                break
-
-        if line and count == None: # readline isn't None means urlopen success, initialize count as 0
-            count = 0
-
-        if TODAY in line and "data-count" in line:
-            mc = re.search('data-count="(\d+)"', line)
-            count = int(mc.group(1))
-
-        # get longest streak
-        if "Longest streak" in line:
-            longestStreak = True
-
-        if longestStreak and "days" in line:
-            longestStreak = False
-            mc = re.search("\d* days", line)
-            days = mc.group()
-            streak_detail += ("Longest streak: " + days + "\n")
-
-        # get current streak
-        if "Current streak" in line:
-            currentStreak = True
-
-        if currentStreak and "days" in line:
-            currentStreak = False
-            mc = re.search("\d* days", line)
-            days = mc.group()
-            streak_detail += ("Current streak: " + days + "\n")
-
+    fw = open(LOG_FILE, 'wb')
+    fw.write(content)
     fw.close()
 
-    send_content = "You have made {0} {1} until now\n{2}\n\n{3}\n{4}\n{5}\n\n#GitHub reminder#\n".format\
-        (
-            count,
-            "contribution" if int(count) < 2 else "contributions",
-            CUR_TIME,
-            pushed_detail,
-            streak_detail,
-            GITHUB_URL,
-        )
+    send_content = "You have made {0} {1} until now\n{2}\n\n\n{3}\n\n#GitHub reminder#\n".format(
+        count,
+        "contribution" if int(count) < 2 else "contributions",
+        CUR_TIME,
+        GITHUB_URL,
+    )
     send_commands = make_commands(send_content)
 
     ##########################################
