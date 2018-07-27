@@ -42,6 +42,9 @@ import re
 
 import python_send
 
+import warnings
+warnings.filterwarnings("ignore")
+
 PASSWORD = None
 
 # try to get password in your user folder
