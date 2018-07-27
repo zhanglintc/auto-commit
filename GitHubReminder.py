@@ -133,7 +133,12 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     reload(sys)
     sys.setdefaultencoding('utf8')
 
+    headers = [
+        ('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'),
+    ]
+
     opener = urllib2.build_opener()
+    opener.addheaders = headers
     opener.addheaders.append(('Cookie', 'tz=Asia%2FShanghai')) # set tz(timezone) to gain contributions correctly
     web_content = opener.open(GITHUB_URL)
 
