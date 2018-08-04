@@ -12,7 +12,6 @@ from MmrzLog import log
 # if GitHubReminder.github_reminder() returned with not code 0, recall it
 # Zhanglin_Github_URL = "https://github.com/zhanglintc?tab=overview&from={0}".format(GitHubReminder.TODAY)
 try:
-    raise RuntimeError('testError')
     Zhanglin_Github_URL = "https://github.com/zhanglintc"
     for i in range(3):
         if GitHubReminder.github_reminder(GITHUB_URL = Zhanglin_Github_URL, Auto_Commit_Flag = True):
