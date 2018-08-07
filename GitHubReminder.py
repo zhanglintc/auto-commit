@@ -111,7 +111,7 @@ def make_commands(send_content):
     return send_commands
 
 
-def auto_commit(streak_detail):
+def auto_commit():
     """
     make an auto-commit to GitHub
 
@@ -126,8 +126,7 @@ def auto_commit(streak_detail):
     os.system('{} git commit -m "{} auto commit"'.format(cd_command, CUR_TIME))
     os.system('{} git push'.format(cd_command))
 
-    send_content = "You have not made any contribution today\nso we did a auto-commit for you\n\n{0}\n{1}\n\n#GitHub reminder#".format(
-        streak_detail,
+    send_content = "You have not made any contribution today\nso we did a auto-commit for you\n\n{0}\n\n#GitHub reminder#".format(
         GITHUB_URL,
     )
     send_commands = make_commands(send_content)
@@ -176,7 +175,7 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     # do automatically commit function
 
     if time.localtime().tm_hour == 23 and int(count) == 0 and Auto_Commit_Flag:
-        send_content = send_commands = auto_commit(streak_detail)
+        send_content = send_commands = auto_commit()
 
     urllib.urlopen("http://zhanglintc.work:8000/send?text={0}".format(urllib.quote(send_content)))
     ##########################################
