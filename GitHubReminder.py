@@ -81,7 +81,7 @@ MailList = [
 
 TODAY = str(datetime.date.today()) # something like: 2014-11-10
 CUR_TIME = (datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')) # 2014-11-10 15:12:40
-LOG_FILE = (datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d_%H%M%S')) + '.log' # 20141110_151240.log
+LOG_FILE = sys.path[0] + '/' + (datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d_%H%M%S')) + '.log' # 20141110_151240.log
 
 def make_commands(send_content):
     send_commands = []

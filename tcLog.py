@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-#
 
-import sys, time
+import os, sys, time
 import inspect
 
 INFO  = "I"
@@ -9,21 +9,22 @@ DEBUG = "D"
 ERROR = "E"
 WARN  = "W"
 
-class MmrzLog:
+class tcLog:
     log = None
 
     def __init__(self):
-        self.log_path = "Mmrz-Sync.log"
+        dname = os.path.basename(sys.path[0])
+        self.log_path = "{0}/{1}.log".format(sys.path[0], dname)
         self.logger = open(self.log_path, "ab")
 
     def __del__(self):
         self.logger.close()
 
     def __new__():
-        if MmrzLog.log is None:
-            MmrzLog.log = MmrzLog()
+        if tcLog.log is None:
+            tcLog.log = tcLog()
         else:
-            return MmrzLog.log
+            return tcLog.log
 
     def _get_caller_info(self):
         file_name = inspect.currentframe().f_back.f_back.f_code.co_filename
@@ -53,5 +54,5 @@ class MmrzLog:
         file_name, func_name = self._get_caller_info()
         self._output(WARN, msg, file_name, func_name)
 
-log = MmrzLog()
+log = tcLog()
 

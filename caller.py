@@ -5,7 +5,7 @@ import os, sys
 import GitHubReminder
 import traceback
 
-from MmrzLog import log
+from tcLog import log
 
 #command = r"python {}\GitHubReminder.py".format(sys.path[0])
 
