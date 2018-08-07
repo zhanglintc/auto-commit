@@ -140,7 +140,7 @@ def github_reminder(MailList = MailList, GITHUB_URL = GITHUB_URL, Auto_Commit_Fl
     content = ""
     count = -1
 
-    driver = webdriver.PhantomJS()
+    driver = webdriver.PhantomJS(service_log_path="{0}/{1}".format(sys.path[0], 'ghostdriver.log'))
     driver.set_page_load_timeout(30)
     driver.set_script_timeout(30)
 
